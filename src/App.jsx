@@ -21,7 +21,6 @@ function App() {
         .then(data => setUsers(data))
         .catch(error => console.error('Error fetching users:', error));
     }, []);
-
     return (
         <>
             <Header />
