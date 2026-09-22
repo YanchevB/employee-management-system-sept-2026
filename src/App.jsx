@@ -14,14 +14,9 @@ function App() {
     const [showSaveUserModal, setShowSaveUserModal] = useState(false);
 
     useEffect(() => {
-        fetch(`${BASE_URL}`, {
-            headers: {
-                'apiKey': apiKey,
-            }
-        })
-        .then(res => res.json())
-        .then(data => setUsers(data))
-        .catch(error => console.error('Error fetching users:', error));
+        fetchUsers()
+            .then(data => setUsers(data))
+            .catch(error => console.error('Error fetching users:', error));
     }, []);
 
     const addUserClickHandler = () => {
@@ -32,18 +27,25 @@ function App() {
         setShowSaveUserModal(false);
     }
 
-    const submitUserHandler = (user) => {
-        fetch(BASE_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'apiKey': apiKey,
-            },
-            body: JSON.stringify(user)
-        })
-            .then(res => console.log('User added'))
-            .catch(error => alert(error))
-            .finally(() => setShowSaveUserModal(false));
+    const submitUserHandler = async (user) => {
+        try {
+            await fetch(BASE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apiKey': apiKey,
+                },
+                body: JSON.stringify(user)
+            });
+
+            const updatedUsers = await fetchUsers();
+            setUsers(updatedUsers);
+        } catch (error) {
+            alert(error);
+        } finally {
+            setShowSaveUserModal(false);
+        }
+        
     }
 
     return (
@@ -69,6 +71,18 @@ function App() {
         </>
 
     )
+}
+
+async function fetchUsers() {
+    const response = await fetch(BASE_URL, {
+        headers: {
+            'apiKey': apiKey
+        }
+    })
+
+    const data = await response.json();
+
+    return data;
 }
 
 export default App
