@@ -1,7 +1,3 @@
-{/* Overlap components  */ }
-{/* <div class="loading-shade"> */ }
-{/* Loading spinner  */ }
-{/* <div class="spinner"></div> */ }
 {/* No users added yet  */ }
 {/* <div class="table-overlap">
         <svg

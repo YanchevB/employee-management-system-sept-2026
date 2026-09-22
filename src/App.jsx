@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Pagination from './components/Pagination'
 import UserList from './components/UserList'
 import UserSearch from './components/UserSearch'
+import Spinner from './components/Spinner'
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
                     <Pagination />
                 </section>
             </main>
-            
+
             <Footer />
         </>
 
