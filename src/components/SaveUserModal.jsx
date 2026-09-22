@@ -1,6 +1,29 @@
 export default function SaveUserModal({
-    onClose
+    onClose,
+    onSubmit
 }) {
+    const submitHandler = (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const { firstName, lastName, email, phoneNumber, imageUrl, country, city, street, streetNumber } = Object.fromEntries(formData);
+        const employee = {
+            firstName,
+            lastName,
+            email,
+            phoneNumber,
+            imageUrl,
+            address: {
+                country,
+                city,
+                street,
+                streetNumber
+            }
+        }
+        
+        onSubmit(employee);
+    }
+
     return (
         <div className="overlay">
             <div className="backdrop" onClick={onClose}></div>
@@ -17,7 +40,7 @@ export default function SaveUserModal({
                             </svg>
                         </button>
                     </header>
-                    <form>
+                    <form onSubmit={submitHandler}>
                         <div className="form-row">
                             <div className="form-group">
                                 <label htmlFor="firstName">First name</label>

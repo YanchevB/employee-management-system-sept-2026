@@ -32,6 +32,20 @@ function App() {
         setShowSaveUserModal(false);
     }
 
+    const submitUserHandler = (user) => {
+        fetch(BASE_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'apiKey': apiKey,
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => console.log('User added'))
+            .catch(error => alert(error))
+            .finally(() => setShowSaveUserModal(false));
+    }
+
     return (
         <>
             <Header />
@@ -45,7 +59,7 @@ function App() {
                     {/* New user button  */}
                     <button className="btn-add btn" onClick={addUserClickHandler}>Add new user</button>
 
-                    {showSaveUserModal && <SaveUserModal onClose={addUserCloseHandler} />}
+                    {showSaveUserModal && <SaveUserModal onClose={addUserCloseHandler} onSubmit={submitUserHandler}/>}
 
                     <Pagination />
                 </section>
