@@ -2,9 +2,12 @@ import { useState } from "react";
 import UserListItem from "./UserListItem";
 import UserDetails from "./UserDetails";
 import UserDeleteModal from "./UserDeleteModal";
+import { apiKey, BASE_URL } from "../keys";
+import { fetchUsers } from "../App";
 
 export default function UserList({
-    users
+    users,
+    onUserUpdate
 }) {
     const [selectedUserId, setSelectedUserId] = useState(null);
     const [showUserDetails, setShowUserDetails] = useState(false);
@@ -24,6 +27,22 @@ export default function UserList({
         setShowUserDetails(false);
         setShowUserDeleteModal(false);
         setSelectedUserId(null);
+    }
+
+    const deleteUserHandler = async () => {
+        try {
+            await fetch(`${BASE_URL}?id=eq.${selectedUserId}`, {
+                method: 'DELETE',
+                headers: {
+                    'apiKey': apiKey
+                }
+            }) 
+            onUserUpdate();
+        } catch (error) {
+            alert(error);
+        } finally {
+            closeModalHandler();
+        }
     }
 
     return (
@@ -140,7 +159,8 @@ export default function UserList({
                 userId={selectedUserId}
                 onClose={closeModalHandler} />}
             {showUserDeleteModal && <UserDeleteModal
-                onClose={closeModalHandler} />}
+                onClose={closeModalHandler}
+                onDelete={deleteUserHandler} />}
         </div>
     );
 }

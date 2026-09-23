@@ -48,6 +48,15 @@ function App() {
         
     }
 
+    const userUpdateHandler = async () => {
+        try {
+            const updatedUsers = await fetchUsers();
+            setUsers(updatedUsers);
+        } catch (error) {
+            alert(error);
+        }
+    }
+
     return (
         <>
             <Header />
@@ -56,7 +65,7 @@ function App() {
                 <section className="card users-container">
                     <UserSearch />
 
-                    <UserList users={users} />
+                    <UserList users={users} onUserUpdate={userUpdateHandler}/>
 
                     {/* New user button  */}
                     <button className="btn-add btn" onClick={addUserClickHandler}>Add new user</button>
@@ -73,7 +82,7 @@ function App() {
     )
 }
 
-async function fetchUsers() {
+export async function fetchUsers() {
     const response = await fetch(BASE_URL, {
         headers: {
             'apiKey': apiKey
