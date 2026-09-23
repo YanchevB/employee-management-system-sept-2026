@@ -4,6 +4,7 @@ import UserDetails from "./UserDetails";
 import UserDeleteModal from "./UserDeleteModal";
 import { apiKey, BASE_URL } from "../keys";
 import { fetchUsers } from "../App";
+import Spinner from "./Spinner";
 
 export default function UserList({
     users,
@@ -47,6 +48,7 @@ export default function UserList({
 
     return (
         <div className="table-wrapper">
+            {users.length === 0 && <Spinner />}
             <table className="table">
                 <thead>
                     <tr>
