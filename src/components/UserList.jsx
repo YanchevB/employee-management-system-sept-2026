@@ -5,9 +5,11 @@ import UserDetails from "./UserDetails";
 export default function UserList({
     users
 }) {
+    const [selectedUserId, setSelectedUserId] = useState(null);
     const [showUserDetails, setShowUserDetails] = useState(false);
 
     const showUserDetailsHandler = (userId) => {
+        setSelectedUserId(userId);
         setShowUserDetails(true);
     }
     return (
@@ -119,7 +121,7 @@ export default function UserList({
                 </tbody>
             </table>
 
-        {showUserDetails && <UserDetails />}
+        {showUserDetails && <UserDetails userId={selectedUserId}/>}
         </div>
     );
 }

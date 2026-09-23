@@ -62,7 +62,7 @@ export default function UserListItem({
                         ></path>
                     </svg>
                 </button>
-                <button className="btn info-btn" onClick={onInfo} title="Info">
+                <button className="btn info-btn" onClick={() => onInfo(id)} title="Info">
                     <svg
                         aria-hidden="true"
                         focusable="false"
