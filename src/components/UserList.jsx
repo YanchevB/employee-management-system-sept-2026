@@ -15,17 +15,15 @@ export default function UserList({
         setShowUserDetails(true);
     }
 
-    const closeUserDetailsHandler = () => {
-        setShowUserDetails(false);
-    }
-
     const showUserDeleteModalHandler = (userId) => {
         setSelectedUserId(userId);
         setShowUserDeleteModal(true);
     }
 
-    const closeUserDeleteModalHandler = () => {
+    const closeModalHandler = () => {
+        setShowUserDetails(false);
         setShowUserDeleteModal(false);
+        setSelectedUserId(null);
     }
 
     return (
@@ -129,17 +127,20 @@ export default function UserList({
                 </thead>
                 <tbody>
                     {users.map(user => (
-                        <UserListItem 
-                        key={user.id} 
-                        {...user} 
-                        onInfo={showUserDetailsHandler}
-                        onDelete={showUserDeleteModalHandler}/>
+                        <UserListItem
+                            key={user.id}
+                            {...user}
+                            onInfo={showUserDetailsHandler}
+                            onDelete={showUserDeleteModalHandler} />
                     ))}
                 </tbody>
             </table>
 
-        {showUserDetails && <UserDetails userId={selectedUserId} onClose={closeUserDetailsHandler}/>}
-        {showUserDeleteModal && <UserDeleteModal onClose={closeUserDeleteModalHandler}/>}
+            {showUserDetails && <UserDetails
+                userId={selectedUserId}
+                onClose={closeModalHandler} />}
+            {showUserDeleteModal && <UserDeleteModal
+                onClose={closeModalHandler} />}
         </div>
     );
 }
