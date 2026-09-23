@@ -10,7 +10,8 @@ export default function UserListItem({
     phoneNumber,
     updatedAt,
     address,
-    onInfo
+    onInfo,
+    onDelete
 }) {
 
     return (
@@ -45,7 +46,7 @@ export default function UserListItem({
                         ></path>
                     </svg>
                 </button>
-                <button className="btn delete-btn" title="Delete">
+                <button className="btn delete-btn" onClick={() => onDelete(id)} title="Delete">
                     <svg
                         aria-hidden="true"
                         focusable="false"
